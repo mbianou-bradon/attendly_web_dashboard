@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { FaGreaterThan, FaLessThan } from "react-icons/fa";
 
-export default function Content() {
+export default function Attendance() {
   const [asks, setAsks] = React.useState<AskType[]>([]);
   const [page, setPage] = React.useState(1);
   const [limit, setLimit] = React.useState(5);
