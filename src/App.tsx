@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Attendance from "./pages/Attendance";
 import Users from "./pages/User";
 import Login from "./pages/Login";
+import Home from "./pages/Home";
 
 
 
@@ -18,7 +19,6 @@ const MyApp = () => {
           <div className="h-full lg:h-screen sm:ml-[11.6rem]">
              <Outlet />
           </div>
-        <Footer/>
     </div>
   )
 }
@@ -32,9 +32,8 @@ const router = createBrowserRouter (
         { path: '/', element: <Home />,},
         { path: '/students', element: <Users />},
         { path: '/login', element: <Login />},
-        { path: '/blogs', element: <Blogs />},
         { path: '/attendance', element: <Attendance />},
-        { path: '/attendances/:course', element: <ProjectDetails />},
+        { path: '/attendances/:course', element: <Attendance />},
 
       ]
     }
