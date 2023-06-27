@@ -1,4 +1,4 @@
-import client from "@/axios/axios";
+import client from "../api/axios";
 import AttendanceComponent from "../components/AttendanceComponent";
 import Loading from "../components/Loading";
 import { AskType } from "@/dataTypes";
