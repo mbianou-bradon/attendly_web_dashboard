@@ -3,15 +3,15 @@ import { IoMdNotificationsOutline } from "react-icons/io"
 import { RxPerson } from "react-icons/rx"
 import { BsSearch } from "react-icons/bs"
 import React from "react"
-import client from "@/axios/axios"
-import { AskType, UserType } from "@/dataTypes"
-import logo from "../assets/images/logo.png";
-import { Link } from "react-router-dom"
+import client from "../api/axios"
+import { Attendance, Student, Teacher } from "../dataTypes"
+import logoViolette from "../assets/images/Attendly_logo_violette.png";
+import { NavLink } from "react-router-dom"
 
 export default function Header(){
 
-    const [users, setUsers] = React.useState<UserType[]>([])
-    const [askCategories, setAskCategories] = React.useState<AskType[]>([])
+    const [students, setStudents] = React.useState<Student[]>([])
+    const [attendances, setAttendance] = React.useState<Attendance[]>([])
     const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false);
     const [viewMoreIsOpen, setViewMoreIsOpen] = React.useState<boolean>(false);
 
@@ -23,21 +23,21 @@ export default function Header(){
         .then((response) => {
             const data = response.data.users
             // console.log(data);
-            setUsers(data)
+            setStudents(data)
         })
         .catch(err => console.error(err))
 
         asks
         .then((response) => {
             const data = response.data.category
-            setAskCategories(data)
+            setAttendance(data)
         })
         .catch(err => console.error(err))
         
     },[])
 
-    const numOfUsers = users.length || 0
-    const numOfCategories = askCategories.length || 0
+    const numOfUsers = students.length || 0
+    const numOfCategories = attendances.length || 0
 
 
     const handleMobileMenu = () => {
@@ -48,11 +48,11 @@ export default function Header(){
     }
 
     const handleLogOut = () => {
-        signOut(auth)
-        .then(()=>{
-            localStorage.removeItem("@jwtToken")
-            router.replace("/login");
-        });
+        // signOut(auth)
+        // .then(()=>{
+        //     localStorage.removeItem("@jwtToken")
+        //     router.replace("/login");
+        // });
     }
 
 
@@ -66,7 +66,7 @@ export default function Header(){
             <div className="sm:hidden mb-5">
                 <div className="flex items-center justify-between px-4">
                     <div className="">
-                        <img src={logo} alt="Logo" className="w-[5rem]"/>
+                        <img src={logoViolette} alt="Logo" className="w-[5rem]"/>
                     </div>
                     <div className="text-2xl" onClick={handleMobileMenu}>
                         <AiOutlineMenu />
@@ -77,21 +77,21 @@ export default function Header(){
                     <nav>
                         <ul className="p-2 [&>*]:block [&>*]:px-2 [&>*]:py-3 [&>*]:mb-2 [&>Link:hover]:bg-primary/20 [&>*]:rounded-lg">
 
-                            <Link to={"/"} className={router.pathname==="/"? "bg-primary/20": "bg-transparent"} onClick={handleMobileMenu}>
+                            <NavLink to={"/"} className={({isActive}) => ( isActive? "bg-primary/20": "bg-transparent")} onClick={handleMobileMenu}>
                                 Users
-                            </Link>
+                            </NavLink>
 
-                            <Link to={"/content"} className={router.pathname==="/content"? "bg-primary/20": "bg-transparent"} onClick={handleMobileMenu}>
+                            <NavLink to={"/content"} className={({isActive}) => ( isActive? "bg-primary/20": "bg-transparent")} onClick={handleMobileMenu}>
                                 Content 
-                            </Link>
+                            </NavLink>
 
-                            <Link to={"/analytics"} className={router.pathname==="/analytics"? "bg-primary/20": "bg-transparent"}>
+                            <NavLink to={"/analytics"} className={({isActive}) => ( isActive? "bg-primary/20": "bg-transparent")}>
                                 Analytics
-                            </Link>
+                            </NavLink>
 
-                            <Link to={"/moderation"} className={router.pathname==="/moderation"? "bg-primary/20": "bg-transparent"}>
+                            <NavLink to={"/moderation"} className={({isActive}) => ( isActive? "bg-primary/20": "bg-transparent")}>
                                 Moderation
-                            </Link>
+                            </NavLink>
                            
                             <div className=" justify-between">
                                 <div className="flex">

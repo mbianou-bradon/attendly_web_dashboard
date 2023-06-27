@@ -1,8 +1,7 @@
 import client from "../api/axios";
 import AttendanceComponent from "../components/AttendanceComponent";
 import Loading from "../components/Loading";
-import { AskType } from "@/dataTypes";
-import { useRouter } from "next/router";
+import { AskType } from "../dataTypes";
 import React from "react";
 import { FaGreaterThan, FaLessThan } from "react-icons/fa";
 
@@ -11,12 +10,11 @@ export default function Attendance() {
   const [page, setPage] = React.useState(1);
   const [limit, setLimit] = React.useState(5);
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
-  const router = useRouter();
 
   React.useEffect(() => {
     const jwtToken = JSON.parse(localStorage.getItem("@jwtToken") as string);
     if (!jwtToken){
-      router.replace("/login")
+    //   router.replace("/login")
     }
     else {
     const asks = client.get(`/asks?category=&limit=5&page=${page}`);
@@ -33,7 +31,7 @@ export default function Attendance() {
         setIsLoading(false);
       });
     }
-  }, [page, router]);
+  }, [page]);
 
   let prevPageBtnStyles = "cursor-pointer hover:bg-primary flex";
   let nextPageBtnStyles = "cursor-pointer hover:bg-primary flex";
