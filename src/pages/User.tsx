@@ -1,9 +1,9 @@
 import { BsSquare } from "react-icons/bs";
 import React from "react";
-import client from "@/axios/axios";
+import client from "../api/axios";
 import UserComponent from "../components/UserComponent";
-import { UserType } from "@/dataTypes";
-import Loading from "@/components/Loading";
+import { UserType } from "../dataTypes";
+import Loading from "../components/Loading";
 import { FaLessThan, FaGreaterThan } from "react-icons/fa";
 
 
@@ -17,7 +17,7 @@ export default function Users() {
   React.useEffect(() => {
     const jwtToken = JSON.parse(localStorage.getItem("@jwtToken") as string);
     if (!jwtToken){
-      router.replace("/login")
+    //   router.replace("/login")
     }
     else {
       const users = client.get(`/users?limit=${limit}&page=${page}`);
@@ -34,7 +34,7 @@ export default function Users() {
       });
     }
     
-  }, [limit, router,page]);
+  }, [limit,page]);
 
   let prevPageBtnStyles = "cursor-pointer hover:bg-primary flex";
   let nextPageBtnStyles = "cursor-pointer hover:bg-primary flex";

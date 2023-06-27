@@ -1,11 +1,10 @@
-import client from "@/axios/axios";
+import client from "../api/axios";
 import React from "react";
 import { AiFillEyeInvisible } from "react-icons/ai";
 import Loading from "./Loading";
-import { formatDistance, formatDistanceToNow } from "date-fns";
-import Image from "next/image";
 
-export default function AskComponent(ask: {
+
+export default function AttendanceComponent(ask: {
   _id: string;
   message: string;
   category: string;
@@ -103,12 +102,12 @@ export default function AskComponent(ask: {
                 <div className="text-[0.65rem] text-[#9C9C9C] w-3/5 flex justify-between flex-wrap gap-y-2">
                   <p>
                     posted{" "}
-                    {formatDistanceToNow(new Date(createDate), {
+                    {/*formatDistanceToNow(new Date(createDate), {
                       addSuffix: true,
-                    })}
+                    })*/}
                   </p>
                   <p>
-                    {formatDistance(createDate, expiringDate)} left to expire
+                    {/*formatDistance(createDate, expiringDate)*/} left to expire
                   </p>
                 </div>
               </div>
@@ -118,7 +117,7 @@ export default function AskComponent(ask: {
             <td className="hidden md:table-cell">
               <div className="flex items-center gap-1">
                 <div className="w-8 h-8 rounded-full bg-primary/20">
-                   <Image
+                   <img
                       src={ask.user.profileImage} alt={""} 
                       className="w-full h-full rounded-full"   
                       width={32}    

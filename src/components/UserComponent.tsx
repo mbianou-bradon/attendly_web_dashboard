@@ -3,8 +3,8 @@ import { AiOutlineThunderbolt } from "react-icons/ai";
 import { BsSquare } from "react-icons/bs";
 import { HiOutlineBan } from "react-icons/hi";
 import Loading from "./Loading";
-import client from "@/axios/axios";
-import Image from "next/image";
+import client from "../api/axios";
+
 
 export default function UserComponent(user: {
   _id: string;
@@ -159,7 +159,7 @@ export default function UserComponent(user: {
             <td>
               <div className="flex items-center gap-1">
                 <div className="w-8 h-8 rounded-full bg-primary/20">
-                  <Image
+                  <img
                       src={user.profileImage} alt={""} 
                       className="w-full h-full rounded-full"   
                       width={32}    

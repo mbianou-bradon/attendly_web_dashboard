@@ -1,10 +1,8 @@
-import logo from "../assets/images/logo.png"
+import logoViolette from "../assets/images/Attendly_logo_violette.png"
 import { MdEmail, MdLock } from "react-icons/md"
 import { IoIosEyeOff, IoIosEye } from "react-icons/io"
 import React from "react"
-import { signInWithEmailAndPassword } from "firebase/auth"
-import { auth } from "@/config/firebaseConfig"
-import { useRouter } from "next/router"
+
 
 export default function Login() {
     const [userEmail, setUserEmail] = React.useState<string>("");
@@ -12,14 +10,13 @@ export default function Login() {
     const [isPasswordVisible, setIsPasswordVisible] = React.useState<boolean>(false)
     const [error, setError] = React.useState<boolean>(false);
     const [errorMessage, setErrorMessage] = React.useState<any>("An error occured");
-    const router = useRouter();
 
 
     React.useEffect(()=>{
         const jwtToken = JSON.parse(localStorage.getItem("@jwtToken") as string);
-        if(jwtToken)
-            router.push("/");
-    },[router]);
+        if(jwtToken){}
+            // router.push("/");
+    },[]);
 
     let type = "password";
     if(isPasswordVisible){
@@ -34,17 +31,17 @@ export default function Login() {
         event.preventDefault();
 
         try {
-            const user = await signInWithEmailAndPassword(
-                auth, userEmail, userPassword
-            )
-            console.log("user sign in success");
-            setUserEmail("");
-            setUserPassword("");
-            setError(false);
-            const token = await user.user.getIdToken();
-            localStorage.setItem("@jwtToken", JSON.stringify(token));
+            // const user = await signInWithEmailAndPassword(
+            //     auth, userEmail, userPassword
+            // )
+            // console.log("user sign in success");
+            // setUserEmail("");
+            // setUserPassword("");
+            // setError(false);
+            // const token = await user.user.getIdToken();
+            // localStorage.setItem("@jwtToken", JSON.stringify(token));
             
-            router.replace("/");
+            // router.replace("/");
 
         } catch (error) {
             setError(true);
@@ -62,7 +59,7 @@ export default function Login() {
             <div className="flex items-center justify-center h-full w-full">
                 <div className="border-primary flex flex-col">
                     <div className="mb-10 flex justify-center">
-                        <img src={logo} alt={"WhoGet Logo"} />
+                        <img src={logoViolette} alt={"Attendly Logo"} />
                     </div>
                     {error && <div className="py-4 bg-red-600 rounded-md text-white font-bold text-center text-sm">{errorMessage}</div>}
                     <form onSubmit={handleSignInUser}>
