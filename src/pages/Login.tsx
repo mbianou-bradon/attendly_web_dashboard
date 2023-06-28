@@ -1,5 +1,6 @@
 import logoWhite from "../assets/images/Attendly_logo_white.png"
 import { MdEmail, MdLock } from "react-icons/md"
+import { BiSolidSchool } from "react-icons/bi"
 import { IoIosEyeOff, IoIosEye } from "react-icons/io"
 import React from "react"
 
@@ -66,16 +67,16 @@ export default function Login() {
                         <div className="py-2 flex flex-col gap-10 text-white">
                             <div className="flex items-center gap-4 py-2 border border-slate-800 px-4 h-14 rounded-md">
                                 <div>
-                                    <MdEmail className="text-xl"/>
+                                    <BiSolidSchool className="text-xl"/>
                                 </div>
-                                <input type="text" placeholder="Matricule Number" value={userMatricule} onChange={(matricule)=>setUserMatricule(matricule.target.value)} className="h-full pl-2 focus:outline-none focus:ring-0 rounded border border-slate-800 bg-transparent" required/>
+                                <input type="text" placeholder="Matriculation Number" value={userMatricule} onChange={(matricule)=>setUserMatricule(matricule.target.value)} className="h-full pl-2 focus:outline-none focus:ring-0 rounded border border-slate-800 bg-transparent text-sm" required/>
                             </div>
 
                             <div className="flex items-center gap-4 py-2 border border-slate-800 px-4 h-14 rounded-md">
                                 <div>
                                     <MdLock className="text-xl"/>
                                 </div>
-                                <input type={type} placeholder="Password" value={userPassword} onChange={(password)=>setUserPassword(password.target.value)} className="h-full pl-2 focus:outline-none focus:ring-0 rounded border border-slate-800 bg-transparent" required/>
+                                <input type={type} placeholder="Password" value={userPassword} onChange={(password)=>setUserPassword(password.target.value)} className="h-full pl-2 focus:outline-none focus:ring-0 rounded border border-slate-800 bg-transparent text-sm" required/>
                                 <div className="text-xl cursor-pointer" onClick={handleViewPassword}>
                                     {isPasswordVisible? <IoIosEye/> : <IoIosEyeOff/>}
                                 </div>
