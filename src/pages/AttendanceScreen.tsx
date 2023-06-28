@@ -1,15 +1,15 @@
 import client from "../api/axios";
 import AttendanceComponent from "../components/AttendanceComponent";
 import Loading from "../components/Loading";
-import { AskType } from "../dataTypes";
+import { Attendance } from "../dataTypes";
 import React from "react";
 import { FaGreaterThan, FaLessThan } from "react-icons/fa";
 
-export default function Attendance() {
-  const [asks, setAsks] = React.useState<AskType[]>([]);
+export default function AttendanceScreen() {
+  const [asks, setAsks] = React.useState<Attendance[]>([]);
   const [page, setPage] = React.useState(1);
   const [limit, setLimit] = React.useState(5);
-  const [isLoading, setIsLoading] = React.useState<boolean>(true);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     const jwtToken = JSON.parse(localStorage.getItem("@jwtToken") as string);
@@ -60,12 +60,11 @@ export default function Attendance() {
   ) : (
     <div className="px-6 relative">
       <table className="w-full">
-        <thead className="h-16 border-b border-[#EEEEEE]">
+        <thead className="h-16 border-b border-primary/30">
           <tr className="text-left">
-            <th className="w-[60%] sm:w-[50%]">Question</th>
-            <th className="hidden sm:table-cell sm:w-[15%]">Category</th>
-            <th className="hidden md:table-cell md:w-[20%]">Users</th>
-            <th className="w-[40%] sm:w-[35%] md:w-[15%]"></th>
+            <th className="w-[60%] sm:w-[45%]">Matricule Number</th>
+            <th className="hidden sm:table-cell sm:w-[35%]">Course code</th>
+            <th className="hidden md:table-cell md:w-[20%]">Date</th>
           </tr>
         </thead>
 
@@ -73,21 +72,22 @@ export default function Attendance() {
           {asks.length > 0 ? (
             asks.map((askData) => {
               return (
-                <AttendanceComponent
-                  key={askData._id}
-                  message={askData.message}
-                  category={askData.category}
-                  _id={askData._id}
-                  visibility={askData.visibility}
-                  report={askData.report}
-                  user={askData.user} createdAt={askData.createdAt} duration={askData.duration}  
-                />
+              //   <AttendanceComponent
+              //     key={askData._id}
+              //     message={askData.message}
+              //     category={askData.category}
+              //     _id={askData._id}
+              //     visibility={askData.visibility}
+              //     report={askData.report}
+              //     user={askData.user} createdAt={askData.createdAt} duration={askData.duration}  
+              //   />
+              <div></div>
               );
             })
           ) : (
             <div>
               <p>
-                No asks to display. Please refresh to see if they are more to
+                No attendances to display. Please refresh to see if they are more to
                 display
               </p>
             </div>

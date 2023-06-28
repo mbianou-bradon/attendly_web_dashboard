@@ -2,14 +2,14 @@ import { BsSquare } from "react-icons/bs";
 import React from "react";
 import client from "../api/axios";
 import UserComponent from "../components/UserComponent";
-import { UserType } from "../dataTypes";
+import { Student } from "../dataTypes";
 import Loading from "../components/Loading";
 import { FaLessThan, FaGreaterThan } from "react-icons/fa";
 
 
 export default function Users() {
-  const [users, setUsers] = React.useState<UserType[]>([]);
-  const [isLoading, setIsLoading] = React.useState<boolean>(true);
+  const [users, setUsers] = React.useState<Student[]>([]);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [page, setPage] = React.useState(1);
   const [limit, setLimit] = React.useState(5);
 
@@ -70,12 +70,12 @@ export default function Users() {
               <th className="w-[5%] hidden md:table-cell">
                 <BsSquare />
               </th>
-              <th className="w-[50%] sm:w-[25%]">User</th>
-              <th className="w-[10%] hidden md:table-cell">Status</th>
+              <th className="w-[50%] sm:w-[25%]">Student Name</th>
+              <th className="w-[20%] hidden md:table-cell">Matricule Number</th>
               <th className="w-[15%] hidden sm:table-cell">Phone Number</th>
-              <th className="w-[15%] hidden md:table-cell">Email</th>
-              <th className="w-[15%] hidden md:table-cell">No of Strikes</th>
-              <th className="w-[15%]"></th>
+              <th className="w-[20%] hidden md:table-cell">Email</th>
+              <th className="w-[10%] hidden md:table-cell">Department</th>
+              {/* <th className="w-[15%]"></th> */}
             </tr>
           </thead>
 
@@ -85,21 +85,22 @@ export default function Users() {
             
               users.map((user) => {
                 return (
-                  <UserComponent
-                    key={user._id}
-                    username={user.username}
-                    strikes={user.strikes}
-                    _id={user._id}
-                    profileImage={user.profileImage}
-                    age={user.age}
-                    phoneNumber={user.phoneNumber}
-                    email={user.email}
-                    ban={user.ban}
-                    location={{
-                      town: "",
-                      country: "",
-                    }}
-                  />
+                  // <UserComponent
+                  //   key={user._id}
+                  //   username={user.username}
+                  //   strikes={user.strikes}
+                  //   _id={user._id}
+                  //   profileImage={user.profileImage}
+                  //   age={user.age}
+                  //   phoneNumber={user.phoneNumber}
+                  //   email={user.email}
+                  //   ban={user.ban}
+                  //   location={{
+                  //     town: "",
+                  //     country: "",
+                  //   }}
+                  // />
+                  <div></div>
                 );
               })
             )

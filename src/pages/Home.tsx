@@ -3,45 +3,38 @@
 export default function Home(){
 
     return (
-        <div className="ml-[13rem] h-screen px-5">
+        <div className="px-5">
             <div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-7 [&>*]:w-[18rem] [&>*]:h-[4.7rem] [&>*]:py-2 [&>*]:rounded-3xl [&>*]:bg-primary/20 [&>*]:flex [&>*]:flex-col [&>*]:items-center [&>*]:justify-center [&>*>h2]:text-xl [&>*>h2]:font-semibold [&>*]: [&>*]:">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols- gap-y-7 [&>*]:w-[25rem] [&>*]:h-fit [&>*]:py-3 [&>*]:rounded-xl [&>*]:border-2 [&>*]:border-primary/20 [&>*]:flex [&>*]:flex-col [&>*]:items-center [&>*]:justify-center [&>*>h2]:text-xl [&>*>h2]:font-semibold [&>*>h2]:pb-2 [&>*]:">
                     <div>
-                        <h2>No of Active Users</h2>
-                        <p>765</p>
+                        <h2>Course Title: CEF347</h2>
+                        <div className="[&>*]:px-6 [&>*]:py-2 [&>*]:rounded-md [&>*:hover]:cursor-pointer flex justify-around gap-4 text-neutral_white">
+                            <button className="bg-yellow-400 hover:bg-yellow-500">View Attendance</button>
+                            <button className="bg-green-500 hover:bg-green-600">OPEN</button>
+                        </div>
                     </div>
-
                     <div>
-                        <h2>Total no of Asks</h2>
-                        <p>5648</p>
+                        <h2>Course Title: CEF350</h2>
+                        <div className="[&>*]:px-6 [&>*]:py-2 [&>*]:rounded-md [&>*:hover]:cursor-pointer flex justify-around gap-4 text-neutral_white">
+                            <button className="bg-yellow-400 hover:bg-yellow-500">View Attendance</button>
+                            <button className="bg-red-500 hover:bg-red-600">CLOSED</button>
+                        </div>
                     </div>
-
                     <div>
-                        <h2>Active no of Asks</h2>
-                        <p>4358</p>
+                        <h2>Course Title: CEF445</h2>
+                        <div className="[&>*]:px-6 [&>*]:py-2 [&>*]:rounded-md [&>*:hover]:cursor-pointer flex justify-around gap-4 text-neutral_white">
+                            <button className="bg-yellow-400 hover:bg-yellow-500">View Attendance</button>
+                            <button className="bg-green-500 hover:bg-green-600">OPEN</button>
+                        </div>
                     </div>
-
-                    <div>
-                        <h2>Response Time</h2>
-                        <p className="text-xs">Usually responds in 1 hour</p>
-                    </div>
-
-                    <div>
-                        <h2>User rating</h2>
-                        <p>458</p>
-                    </div>
-
-                    <div>
-                        <h2>No of Categories</h2>
-                        <p>512</p>
-                    </div>
+                  
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 mt-8">
-                    <div>
+                    {/* <div>
                         <h2 className="text-3xl font-bold mb-5">Time Spent</h2>
-                    </div>
-                    <div>
+                    </div> */}
+                    {/* <div>
                         <h2 className="text-3xl font-bold mb-5">Frequency</h2>
                         <div className="grid grid-cols-2 gap-y-5 gap-x-5 [&>*>div]:w-full [&>*>div]:h-[4.7rem] [&>*>div]:py-2 [&>*>div]:rounded-3xl [&>*>div]:bg-primary/20 [&>*>div]:flex [&>*>div]:flex-col [&>*>div]:items-center [&>*>div]:justify-center [&>*>div]:mb-1 [&>*>div>h2]:text-lg [&>*>div>h2]:font-semibold [&>*>div>p]:text-sm [&>*>p]:text-[0.35rem] [&>*>p]:w-[85%] [&>*>p]:mx-auto">
                             <div>
@@ -76,7 +69,7 @@ export default function Home(){
                                 <p>This measures the percentage of users who continue to use the app oveer time, such as the percentage of users who return to the app after one week, two weeks, or one month.</p>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

@@ -4,7 +4,7 @@ import LogoViolette from "../assets/images/Attendly_logo_violette.png"
 export default function NavBar(){
 
     return (
-        <header className="h-[95vh] w-[12rem] bg-secondary pt-[3.25rem] hidden sm:block fixed">
+        <header className="h-[100vh] w-[12rem] bg-neutral_white pt-[3.25rem] hidden sm:block fixed border-r-2 border-primary">
             {/* Logo of Attendly */}
             <div className="logo mb-[4rem] p-2">
                 <img src={LogoViolette} alt="" />
@@ -12,22 +12,22 @@ export default function NavBar(){
 
             {/* Navigation Area */}
             <nav>
-                <ul className="p-2 [&>*]:block [&>*]:px-2 [&>*]:py-3 [&>*]:mb-2 [&>*:hover]:bg-primary/20 [&>*]:rounded-lg">
+                <ul className="p-2 [&>*]:block [&>*]:px-2 [&>*]:py-3 [&>*]:mb-2 [&>*:hover]:bg-primary/40 [&>*]:rounded-lg">
 
-                    <NavLink to={"/"} className={({isActive}) => ( isActive? "bg-primary/20": "bg-transparent")}>
-                        Users
+                    <NavLink to={"/"} className={({isActive}) => ( isActive? "bg-primary/40": "bg-transparent")}>
+                        Overview
                     </NavLink>
 
-                    <NavLink to={"/content"} className={({isActive}) => ( isActive? "bg-primary/20": "bg-transparent")}>
-                        Content 
+                    <NavLink to={"/students"} className={({isActive}) => ( isActive? "bg-primary/40": "bg-transparent")}>
+                        Students 
                     </NavLink>
 
-                    <NavLink to={"/analytics"} className={({isActive}) => ( isActive? "bg-primary/20": "bg-transparent")}>
-                        Analytics
+                    <NavLink to={"/attendances"} className={({isActive}) => ( isActive? "bg-primary/40": "bg-transparent")}>
+                        Attendance
                     </NavLink>
 
-                    <NavLink to={"/moderation"} className={({isActive}) => ( isActive? "bg-primary/20": "bg-transparent")}>
-                        Moderation
+                    <NavLink to={"/profile"} className={({isActive}) => ( isActive? "bg-primary/40": "bg-transparent")}>
+                        Profile
                     </NavLink>
                 </ul>
             </nav>

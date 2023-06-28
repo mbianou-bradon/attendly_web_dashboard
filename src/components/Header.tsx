@@ -78,19 +78,19 @@ export default function Header(){
                         <ul className="p-2 [&>*]:block [&>*]:px-2 [&>*]:py-3 [&>*]:mb-2 [&>Link:hover]:bg-primary/20 [&>*]:rounded-lg">
 
                             <NavLink to={"/"} className={({isActive}) => ( isActive? "bg-primary/20": "bg-transparent")} onClick={handleMobileMenu}>
-                                Users
+                                Overview
                             </NavLink>
 
                             <NavLink to={"/content"} className={({isActive}) => ( isActive? "bg-primary/20": "bg-transparent")} onClick={handleMobileMenu}>
-                                Content 
+                                Students 
                             </NavLink>
 
                             <NavLink to={"/analytics"} className={({isActive}) => ( isActive? "bg-primary/20": "bg-transparent")}>
-                                Analytics
+                                Attendance
                             </NavLink>
 
                             <NavLink to={"/moderation"} className={({isActive}) => ( isActive? "bg-primary/20": "bg-transparent")}>
-                                Moderation
+                                Profile
                             </NavLink>
                            
                             <div className=" justify-between">
@@ -115,11 +115,11 @@ export default function Header(){
                     <div className="flex justify-around [&>*]:flex [&>*]:flex-col [&>*]:items-center [&>*>h2]:text-4xl [&>*>h2]:font-semibold [&>*>p]:text-sm">
                         <div>
                             <h2>{numOfUsers}</h2>
-                            <p>users</p>
+                            <p>Students</p>
                         </div>
                         <div>
                             <h2>{numOfCategories}</h2>
-                            <p>Categories</p>
+                            <p>Courses</p>
                         </div>
                     </div>
                 </div>
@@ -127,9 +127,6 @@ export default function Header(){
 
          
                     <div className="flex justify-between items-center gap-10 flex-wrap md:flex-nowrap">
-                        <div className="text-xl hidden md:block">
-                            <h2>English</h2>
-                        </div>
                         <div className="flex gap-10 [&>*]:cursor-pointer flex-wrap md:flex-nowrap">
                             <div className="text-xl hidden md:block">
                                 <AiOutlineSearch/>
@@ -162,8 +159,8 @@ export default function Header(){
                 </div>
             </div>
             <div className="mx-4 sm:ml-10 hidden md:block">
-                <div className="w-full h-14 px-4 py-1 rounded-md bg-secondary text-[#BBBBBB] flex items-center gap-2">
-                    <div className="text-xl">
+                <div className="w-full h-14 px-4 py-1 rounded-md bg-neutral_white border shadow-inner shadow-primary/40 text-primary flex items-center gap-2">
+                    <div className="text-xl cursor-pointer">
                         <BsSearch />
                     </div>
                     <input type="text" name="search" id="search" className="w-full bg-transparent focus:border-0 focus:ring-0 focus:outline-none" placeholder="Search"/>
