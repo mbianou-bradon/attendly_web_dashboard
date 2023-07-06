@@ -1,14 +1,16 @@
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 import client from "../api/axios";
 import AttendanceComponent from "../components/AttendanceComponent";
 import Loading from "../components/Loading";
 import { Attendance } from "../dataTypes";
 import React from "react";
-import { FaGreaterThan, FaLessThan } from "react-icons/fa";
+import { BiSolidDownload } from "react-icons/bi";
+import autoTable from "jspdf-autotable";
 
 export default function AttendanceScreen() {
   const [asks, setAsks] = React.useState<Attendance[]>([]);
   const [page, setPage] = React.useState(1);
-  const [limit, setLimit] = React.useState(5);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   React.useEffect(() => {
@@ -33,33 +35,17 @@ export default function AttendanceScreen() {
     }
   }, [page]);
 
-  let prevPageBtnStyles = "cursor-pointer hover:bg-primary flex";
-  let nextPageBtnStyles = "cursor-pointer hover:bg-primary flex";
-  if (page === 1)
-    prevPageBtnStyles = "cursor-not-allowed hover:bg-primary/20 hidden";
-  if (asks.length < limit)
-    nextPageBtnStyles = "cursor-not-allowed hover:bg-primary/20 hidden";
-
-  const handlePrevPage = () => {
-    if (page === 1) {
-      alert("You can't go back, you are in the first page already!");
-    } else {
-      setPage((prevPage: number) => prevPage - 1);
-    }
-  };
-  const handleNextPage = () => {
-    if (asks.length < limit) {
-      alert("You have reached the end. You can't go to the Next page");
-    } else {
-      setPage((prevPage: number) => prevPage + 1);
-    }
-  };
+  const handleDownload = () => {
+    const pdf = new jsPDF();
+    autoTable(pdf, {html: "#table"})
+    pdf.save("attendance.pdf");
+  }
 
   return isLoading ? (
     <Loading />
   ) : (
     <div className="px-6 relative">
-      <table className="w-full">
+      <table className="w-full" id="table">
         <thead className="h-16 border-b border-primary/30">
           <tr className="text-left">
             <th className="w-[60%] sm:w-[45%]">Matricule Number</th>
@@ -95,17 +81,10 @@ export default function AttendanceScreen() {
         </tbody>
       </table>
       <div className="flex justify-end">
-        <div className="w-fit border rounded-md flex justify-around gap-2 border-primary text-xs sm:text-sm [&>*]:w-10 [&>*]:sm:w-20 [&>*]:py-2 [&>*]:sm:py-4 [&>*]:justify-center [&>*:hover]:text-white my-5">
-          <div onClick={handlePrevPage} className={prevPageBtnStyles}>
-            <p className="text-center">
-              <FaLessThan />
-            </p>
-          </div>
-          <div onClick={handleNextPage} className={nextPageBtnStyles}>
-            <p>
-              <FaGreaterThan />
-            </p>
-          </div>
+        <div onClick={handleDownload} className="border-2 rounded-full flex border-primary text-3xl sm:text-xl w-10 sm:w-14 h-10 sm:h-14 py-2 sm:py-4 justify-center items-center hover:text-white hover:bg-primary cursor-pointer active:scale-95 my-5 fixed bottom-0">
+          <p className="text-center">
+            <BiSolidDownload />
+          </p>
         </div>
       </div>
     </div>
