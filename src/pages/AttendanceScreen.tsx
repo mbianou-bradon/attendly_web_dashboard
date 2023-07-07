@@ -9,37 +9,36 @@ import { BiSolidDownload } from "react-icons/bi";
 import autoTable from "jspdf-autotable";
 
 export default function AttendanceScreen() {
-  const [asks, setAsks] = React.useState<Attendance[]>([]);
+  const [attendances, setAttendances] = React.useState<Attendance[]>([]);
   const [page, setPage] = React.useState(1);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     const jwtToken = JSON.parse(localStorage.getItem("@jwtToken") as string);
-    if (!jwtToken){
-    //   router.replace("/login")
-    }
-    else {
-    const asks = client.get(`/asks?category=&limit=5&page=${page}`);
-    setIsLoading(true);
-    asks
-      .then((response) => {
-        const data = response.data.asks;
-        console.log(data);
-        setIsLoading(false);
-        setAsks(data);
-      })
-      .catch((err) => {
-        console.log(err);
-        setIsLoading(false);
-      });
+    if (!jwtToken) {
+      //   router.replace("/login")
+    } else {
+      const attendance = client.get(`/asks?category=&limit=5&page=${page}`);
+      setIsLoading(true);
+      attendance
+        .then((response) => {
+          const data = response.data.asks;
+          console.log(data);
+          setIsLoading(false);
+          setAttendances(data);
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsLoading(false);
+        });
     }
   }, [page]);
 
   const handleDownload = () => {
     const pdf = new jsPDF();
-    autoTable(pdf, {html: "#table"})
+    autoTable(pdf, { html: "#table" });
     pdf.save("attendance.pdf");
-  }
+  };
 
   return isLoading ? (
     <Loading />
@@ -55,33 +54,33 @@ export default function AttendanceScreen() {
         </thead>
 
         <tbody>
-          {asks.length > 0 ? (
-            asks.map((askData) => {
+          {attendances.length > 0 ? (
+            attendances.map((attendance, index) => {
               return (
-              //   <AttendanceComponent
-              //     key={askData._id}
-              //     message={askData.message}
-              //     category={askData.category}
-              //     _id={askData._id}
-              //     visibility={askData.visibility}
-              //     report={askData.report}
-              //     user={askData.user} createdAt={askData.createdAt} duration={askData.duration}  
-              //   />
-              <div></div>
+                <AttendanceComponent
+                  key={index}
+                  _id={attendance._id}
+                  studentMatriculeNumber={attendance.studentMatriculeNumber}
+                  courseCode={attendance.courseCode}
+                  dateSigned={attendance.dateSigned}
+                />
               );
             })
           ) : (
             <div>
               <p>
-                No attendances to display. Please refresh to see if they are more to
-                display
+                No attendances to display. Please refresh to see if they are
+                more to display
               </p>
             </div>
           )}
         </tbody>
       </table>
       <div className="flex justify-end">
-        <div onClick={handleDownload} className="border-2 rounded-full flex border-primary text-3xl sm:text-xl w-10 sm:w-14 h-10 sm:h-14 py-2 sm:py-4 justify-center items-center hover:text-white hover:bg-primary cursor-pointer active:scale-95 my-5 fixed bottom-0">
+        <div
+          onClick={handleDownload}
+          className="border-2 rounded-full flex border-primary text-3xl sm:text-xl w-10 sm:w-14 h-10 sm:h-14 py-2 sm:py-4 justify-center items-center hover:text-white hover:bg-primary cursor-pointer active:scale-95 my-5 fixed bottom-0"
+        >
           <p className="text-center">
             <BiSolidDownload />
           </p>

@@ -1,7 +1,8 @@
 export interface Attendance {
-    studentMatricule : string,
+    _id: string,
+    studentMatriculeNumber : string,
     courseCode: string;
-    dateSigned : Date;
+    dateSigned : string;
 }
 
 export interface Student {
