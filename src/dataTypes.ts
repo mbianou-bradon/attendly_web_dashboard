@@ -6,6 +6,7 @@ export interface Attendance {
 }
 
 export interface Student {
+    _id: string,
     studentMatricule : string;
     studentName: string;
     email : string;

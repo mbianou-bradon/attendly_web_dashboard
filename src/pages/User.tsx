@@ -6,20 +6,17 @@ import { Student } from "../dataTypes";
 import Loading from "../components/Loading";
 import { FaLessThan, FaGreaterThan } from "react-icons/fa";
 
-
 export default function Users() {
   const [users, setUsers] = React.useState<Student[]>([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [page, setPage] = React.useState(1);
   const [limit, setLimit] = React.useState(5);
 
-
   React.useEffect(() => {
     const jwtToken = JSON.parse(localStorage.getItem("@jwtToken") as string);
-    if (!jwtToken){
-    //   router.replace("/login")
-    }
-    else {
+    if (!jwtToken) {
+      //   router.replace("/login")
+    } else {
       const users = client.get(`/users?limit=${limit}&page=${page}`);
       users
         .then((response) => {
@@ -29,12 +26,11 @@ export default function Users() {
           setIsLoading(false);
         })
         .catch((err) => {
-          console.error(err)
+          console.error(err);
           setIsLoading(false);
-      });
+        });
     }
-    
-  }, [limit,page]);
+  }, [limit, page]);
 
   let prevPageBtnStyles = "cursor-pointer hover:bg-primary flex";
   let nextPageBtnStyles = "cursor-pointer hover:bg-primary flex";
@@ -60,9 +56,8 @@ export default function Users() {
 
   return isLoading ? (
     <Loading />
-    ) : (
+  ) : (
     <>
-    
       <div className=" px-6">
         <table className="w-full">
           <thead className="h-16 border-b border-[#EEEEEE]">
@@ -79,42 +74,31 @@ export default function Users() {
             </tr>
           </thead>
 
-            
-            <tbody className="[&>*]:border-b [&>*]:border-[#EEEEEE]">
+          <tbody className="[&>*]:border-b [&>*]:border-[#EEEEEE]">
             {users.length > 0 ? (
-            
               users.map((user) => {
                 return (
-                  // <UserComponent
-                  //   key={user._id}
-                  //   username={user.username}
-                  //   strikes={user.strikes}
-                  //   _id={user._id}
-                  //   profileImage={user.profileImage}
-                  //   age={user.age}
-                  //   phoneNumber={user.phoneNumber}
-                  //   email={user.email}
-                  //   ban={user.ban}
-                  //   location={{
-                  //     town: "",
-                  //     country: "",
-                  //   }}
-                  // />
-                  <div></div>
+                  <UserComponent
+                    key={user._id}
+                    _id={user._id}
+                    studentMatricule={user.studentMatricule}
+                    studentName={user.studentName}
+                    email={user.email}
+                    phoneNumber={user.phoneNumber}
+                    faculty={user.faculty}
+                    department={user.department}
+                  />
                 );
               })
-            )
-           : (
-            <>
+            ) : (
+              <>
                 <td></td>
                 <div>
-                    <p>No users to display</p>
+                  <p>No users to display</p>
                 </div>
-            </>
-           
+              </>
             )}
-            </tbody>
-            
+          </tbody>
         </table>
 
         <div className="flex justify-end">
