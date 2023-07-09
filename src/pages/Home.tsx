@@ -1,7 +1,67 @@
+import React from "react"
+import { Course } from "../dataTypes"
+import client from "../api/axios";
 
 
 export default function Home(){
+    const [courses, setCourses] = React.useState<Course[]>([]);
+    const [course, setCourse] = React.useState<Course>({
+        _id : "",
+        courseTitle : "",
+        courseCode : "",
+        openForAttendance : false
+    })
+    const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
 
+    // Get list of courses from local storage in teacher's object
+    const handleGetSingleUser = () => {
+        client.get(`/courses/${courses}`)
+        .then((response)=>{
+            const data = response.data
+            setCourse(data);
+        }).catch((error)=>{
+            console.log("Fetching Single Course:", error);
+        })
+    }
+
+    const handleOpenAttendance = () => {
+        client.patch(`/course/${courses}`, {
+            openForAttendance : !course.openForAttendance
+        })
+    }
+
+    const Modal = () => {
+        return (
+          <div className="w-full h-full absolute top-0 left-0 bg-black opacity-[0.9] z-30">
+            <div className="w-full h-full flex items-center justify-center bg-black">
+              <div className="w-[65%] bg-white p-10 rounded-md">
+                <h1 className="text-xl font-semibold text-center mb-4">
+                  Course Status Confirmation
+                </h1>
+                <p>
+                  Do you want to Confirm your request?
+                </p>
+                <p className="text-xs my-2">
+                  This course is currently{" "}
+                  <span className="underline">{course.openForAttendance? "Open" : "Close"}</span> for attendance.
+                </p>
+                <div className="flex justify-end  gap-5 [&>*]:w-fit [&>*]:my-5 [&>*]:px-6 [&>*]:py-2  [&>*]:font-semibold [&>*]:rounded-md [&>*]:cursor-pointer">
+                  <div
+                    className="border-black border font-semibold rounded-md cursor-pointer"
+                    onClick={() => setIsModalOpen(false)}
+                  >
+                    <h2>CANCEL</h2>
+                  </div>
+                  <div className=" bg-orange-600 text-white uppercase" onClick={handleOpenAttendance}>
+                    <h2>{course.openForAttendance}</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+    };
+    
     return (
         <div className="px-5">
             <div>

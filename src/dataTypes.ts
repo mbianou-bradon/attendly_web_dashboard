@@ -25,6 +25,7 @@ export interface Teacher {
 }
 
 export interface Course {
+    _id : string;
     courseTitle : string;
     courseCode : string;
     openForAttendance : boolean;
