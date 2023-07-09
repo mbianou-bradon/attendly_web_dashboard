@@ -17,7 +17,7 @@ export default function Users() {
     if (!jwtToken) {
       //   router.replace("/login")
     } else {
-      const users = client.get(`/users?limit=${limit}&page=${page}`);
+      const users = client.get(`/students?limit=${limit}&page=${page}`);
       users
         .then((response) => {
           const data = response.data.users;

@@ -10,7 +10,8 @@ import autoTable from "jspdf-autotable";
 
 export default function AttendanceScreen() {
   const [attendances, setAttendances] = React.useState<Attendance[]>([]);
-  const [page, setPage] = React.useState(1);
+  const [course, setCourse] = React.useState<string>("");
+  // const [page, setPage] = React.useState(1);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   React.useEffect(() => {
@@ -18,7 +19,7 @@ export default function AttendanceScreen() {
     if (!jwtToken) {
       //   router.replace("/login")
     } else {
-      const attendance = client.get(`/asks?category=&limit=5&page=${page}`);
+      const attendance = client.get(`/attendances?course=${course}`);
       setIsLoading(true);
       attendance
         .then((response) => {
@@ -32,7 +33,7 @@ export default function AttendanceScreen() {
           setIsLoading(false);
         });
     }
-  }, [page]);
+  }, []);
 
   const handleDownload = () => {
     const pdf = new jsPDF();
