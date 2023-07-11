@@ -7,6 +7,7 @@ import { Attendance } from "../dataTypes";
 import React from "react";
 import { BiSolidDownload } from "react-icons/bi";
 import autoTable from "jspdf-autotable";
+import { redirect } from "react-router-dom";
 
 export default function AttendanceScreen() {
   const [attendances, setAttendances] = React.useState<Attendance[]>([]);
@@ -17,7 +18,7 @@ export default function AttendanceScreen() {
   React.useEffect(() => {
     const jwtToken = JSON.parse(localStorage.getItem("@jwtToken") as string);
     if (!jwtToken) {
-      //   router.replace("/login")
+        redirect("/login");
     } else {
       const attendance = client.get(`/attendances?course=${course}`);
       setIsLoading(true);

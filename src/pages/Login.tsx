@@ -4,6 +4,7 @@ import { BiSolidSchool } from "react-icons/bi"
 import { IoIosEyeOff, IoIosEye } from "react-icons/io"
 import React from "react"
 import { useNavigate } from "react-router-dom"
+import client from "../api/axios"
 
 
 export default function Login() {
@@ -36,24 +37,23 @@ export default function Login() {
     const handleSignInUser = async (event: { preventDefault: () => void } ) => {
         event.preventDefault();
 
-        try {
-            // const user = await signInWithEmailAndPassword(
-            //     auth, userEmail, userPassword
-            // )
-            // console.log("user sign in success");
-            // setUserEmail("");
-            // setUserPassword("");
-            // setError(false);
-            // const token = await user.user.getIdToken();
-            // localStorage.setItem("@jwtToken", JSON.stringify(token));
-            
-            // router.replace("/");
-
-        } catch (error) {
+        client.post("/auth/login", {
+            userID : userMatricule,
+            userPassword
+        }).then((response)=>{
+            const user = response.data.user;
+            localStorage.setItem("@jwtToken", JSON.stringify(user));
+            console.log("user sign in success");
+            setUserMatricule("");
+            setUserPassword("");
+            setError(false);
+            navigate("/");
+        }).catch((error)=>{
             setError(true);
-            setErrorMessage(`${error}`);
+            setErrorMessage(`${error.message}`);
+            setUserPassword("");
             console.log(error);
-        }
+        })
       
 
     }
@@ -83,7 +83,7 @@ export default function Login() {
                                 </div>
                                 <input type={type} placeholder="Password" value={userPassword} onChange={(password)=>setUserPassword(password.target.value)} className="h-full pl-2 focus:outline-none focus:ring-0 rounded border border-neutral_white bg-transparent text-sm" required/>
                                 <div className="text-xl cursor-pointer" onClick={handleViewPassword}>
-                                    {isPasswordVisible? <IoIosEye/> : <IoIosEyeOff/>}
+                                    {!isPasswordVisible? <IoIosEye/> : <IoIosEyeOff/>}
                                 </div>
                             </div>
                             

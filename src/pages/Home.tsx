@@ -1,6 +1,7 @@
 import React from "react"
 import { Course } from "../dataTypes"
 import client from "../api/axios";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Home(){
@@ -12,6 +13,15 @@ export default function Home(){
         openForAttendance : false
     })
     const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
+
+    /**utility functions */
+    const navigate = useNavigate()
+
+    React.useEffect(()=>{
+        const jwtToken = JSON.parse(localStorage.getItem("@jwtToken") as string);
+        if(!jwtToken){}
+            navigate("/login");
+    },[]);
 
     // Get list of courses from local storage in teacher's object
     const handleGetSingleUser = () => {

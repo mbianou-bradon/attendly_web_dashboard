@@ -5,6 +5,7 @@ import UserComponent from "../components/UserComponent";
 import { Student } from "../dataTypes";
 import Loading from "../components/Loading";
 import { FaLessThan, FaGreaterThan } from "react-icons/fa";
+import { redirect } from "react-router-dom";
 
 export default function Users() {
   const [users, setUsers] = React.useState<Student[]>([]);
@@ -12,10 +13,12 @@ export default function Users() {
   const [page, setPage] = React.useState(1);
   const [limit, setLimit] = React.useState(5);
 
+  // const navigate = useNavigate();
+
   React.useEffect(() => {
     const jwtToken = JSON.parse(localStorage.getItem("@jwtToken") as string);
     if (!jwtToken) {
-      //   router.replace("/login")
+        redirect("/login")
     } else {
       const users = client.get(`/students?limit=${limit}&page=${page}`);
       users
