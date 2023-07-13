@@ -21,6 +21,9 @@ export default function Home(){
         const jwtToken = JSON.parse(localStorage.getItem("@jwtToken") as string);
         if(!jwtToken){
          // navigate("/login");   
+        } else {
+            const teacherCourses = jwtToken.courses
+            setCourses(teacherCourses);
         }
     },[]);
 
