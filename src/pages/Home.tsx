@@ -19,8 +19,9 @@ export default function Home(){
 
     React.useEffect(()=>{
         const jwtToken = JSON.parse(localStorage.getItem("@jwtToken") as string);
-        if(!jwtToken){}
-            navigate("/login");
+        if(!jwtToken){
+         // navigate("/login");   
+        }
     },[]);
 
     // Get list of courses from local storage in teacher's object
@@ -42,8 +43,8 @@ export default function Home(){
 
     const Modal = () => {
         return (
-          <div className="w-full h-full absolute top-0 left-0 bg-black opacity-[0.9] z-30">
-            <div className="w-full h-full flex items-center justify-center bg-black">
+          <div className="w-full h-full absolute top-0 left-0 bg-black opacity-50 z-30">
+            <div className="w-full h-full flex items-center justify-center">
               <div className="w-[65%] bg-white p-10 rounded-md">
                 <h1 className="text-xl font-semibold text-center mb-4">
                   Course Status Confirmation
@@ -62,8 +63,8 @@ export default function Home(){
                   >
                     <h2>CANCEL</h2>
                   </div>
-                  <div className=" bg-orange-600 text-white uppercase" onClick={handleOpenAttendance}>
-                    <h2>{course.openForAttendance}</h2>
+                  <div className={`${course.openForAttendance? "bg-orange-600" : "bg-green-500"} text-white uppercase`} onClick={handleOpenAttendance}>
+                    <h2>{course.openForAttendance? "CLOSE" : "OPEN"}</h2>
                   </div>
                 </div>
               </div>
@@ -73,6 +74,10 @@ export default function Home(){
     };
     
     return (
+        <>
+        {
+            isModalOpen && <Modal />
+        }
         <div className="px-5">
             <div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols- gap-y-7 [&>*]:w-[25rem] [&>*]:h-fit [&>*]:py-3 [&>*]:rounded-xl [&>*]:border-2 [&>*]:border-primary/20 [&>*]:flex [&>*]:flex-col [&>*]:items-center [&>*]:justify-center [&>*>h2]:text-xl [&>*>h2]:font-semibold [&>*>h2]:pb-2 [&>*]:">
@@ -80,7 +85,7 @@ export default function Home(){
                         <h2>Course Title: CEF347</h2>
                         <div className="[&>*]:px-6 [&>*]:py-2 [&>*]:rounded-md [&>*:hover]:cursor-pointer flex justify-around gap-4 text-neutral_white">
                             <button className="bg-yellow-400 hover:bg-yellow-500">View Attendance</button>
-                            <button className="bg-green-500 hover:bg-green-600">OPEN</button>
+                            <button className="bg-green-500 hover:bg-green-600" onClick={()=>setIsModalOpen(true)}>OPEN</button>
                         </div>
                     </div>
                     <div>
@@ -143,5 +148,6 @@ export default function Home(){
                 </div>
             </div>
         </div>
+    </>
     )
 }
