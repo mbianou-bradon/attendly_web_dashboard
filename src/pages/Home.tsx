@@ -41,6 +41,10 @@ export default function Home(){
     const handleOpenAttendance = () => {
         client.patch(`/course/${courses}`, {
             openForAttendance : !course.openForAttendance
+        }).then((response)=>{
+            alert(`${response.data}`)
+        }).catch((error)=>{
+            alert(`${error}`)
         })
     }
 
