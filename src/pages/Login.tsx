@@ -42,6 +42,7 @@ export default function Login() {
             userPassword
         }).then((response)=>{
             const user = response.data.user;
+            console.log(user);
             localStorage.setItem("@jwtToken", JSON.stringify(user));
             console.log("user sign in success");
             setUserMatricule("");

@@ -7,7 +7,7 @@ import client from "../api/axios";
 import { Student } from "../dataTypes";
 
 
-export default function UserComponent( { _id, studentMatricule, studentName, email, phoneNumber, department, faculty} : Student) {
+export default function UserComponent( { _id, matriculeNumber, studentName, email, phoneNumber, department, faculty} : Student) {
   const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
@@ -70,7 +70,7 @@ export default function UserComponent( { _id, studentMatricule, studentName, ema
         <Loading />
       ) : (
         <>
-          <tr className="hover:bg-primary/20 cursor-pointer">
+          <tr className="hover:bg-primary/20 cursor-pointer text-xs">
             <td className="pl-2 hidden md:table-cell">
               <BsSquare />
             </td>
@@ -79,7 +79,7 @@ export default function UserComponent( { _id, studentMatricule, studentName, ema
                 <h2 className="text-sm sm:text-[1rem]">{studentName}</h2>
               </div>
             </td>
-            <td className="hidden lg:table-cell">{studentMatricule}</td>
+            <td className="hidden lg:table-cell">{matriculeNumber}</td>
             <td className="hidden md:table-cell">{phoneNumber}</td>
             <td className="hidden md:table-cell text-xs pr-4">{email}</td>
             <td>{department}</td>

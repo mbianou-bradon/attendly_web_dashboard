@@ -3,18 +3,25 @@ import "jspdf-autotable";
 import client from "../api/axios";
 import AttendanceComponent from "../components/AttendanceComponent";
 import Loading from "../components/Loading";
-import { Attendance } from "../dataTypes";
+import { Attendance, Course } from "../dataTypes";
 import React from "react";
 import { BiSolidDownload } from "react-icons/bi";
 import autoTable from "jspdf-autotable";
 import { redirect } from "react-router-dom";
 
 export default function AttendanceScreen() {
+  const user = JSON.parse(localStorage.getItem("@jwtToken") as string);
+  const courses : Course[] = user.coursesTaught
+  const firstOnList : string = courses[0].courseCode
   const [attendances, setAttendances] = React.useState<Attendance[]>([]);
-  const [course, setCourse] = React.useState<string>("");
-  // const [page, setPage] = React.useState(1);
+  const [course, setCourse] = React.useState<string>(firstOnList);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
+  /**Formatted date of today */
+  const today = new Date();
+  const formattedDate = today.toLocaleDateString('en-US', {month: "long", day: "numeric"}).replace(/ /g, '_')
+
+console.log(formattedDate); // Output: "July 17, 2023"
   React.useEffect(() => {
     const jwtToken = JSON.parse(localStorage.getItem("@jwtToken") as string);
     if (!jwtToken) {
@@ -24,7 +31,7 @@ export default function AttendanceScreen() {
       setIsLoading(true);
       attendance
         .then((response) => {
-          const data = response.data.asks;
+          const data = response.data.attendance;
           console.log(data);
           setIsLoading(false);
           setAttendances(data);
@@ -34,18 +41,34 @@ export default function AttendanceScreen() {
           setIsLoading(false);
         });
     }
-  }, []);
+  }, [course]);
 
   const handleDownload = () => {
     const pdf = new jsPDF();
     autoTable(pdf, { html: "#table" });
-    pdf.save("attendance.pdf");
+    pdf.save(`${course}${formattedDate}.pdf`);
   };
 
   return isLoading ? (
     <Loading />
   ) : (
     <div className="px-6 relative">
+      <header>
+        <div className="flex items-center justify-between flex-wrap gap-y-5">
+            <div className="border rounded-full w-fit flex px-2 sm:px-4 py-1 text-sm sm:text-[1rem]">
+              <label htmlFor="courseCode">Course Code :</label>
+              <select name="courseCode" id="courseCode" onChange={(value)=>setCourse(value.target.value)} className="focus:outline-0 bg-transparent text-sm text-secondary min-w-0">
+                {
+                  courses.map((course, index)=>{
+                    return (
+                      <option key={index} value={`${course.courseCode}`}>{course.courseCode}</option>
+                    )
+                  })
+                }
+              </select>
+            </div>
+        </div>
+      </header>
       <table className="w-full" id="table">
         <thead className="h-16 border-b border-primary/30">
           <tr className="text-left">
@@ -56,7 +79,7 @@ export default function AttendanceScreen() {
         </thead>
 
         <tbody>
-          {attendances.length > 0 ? (
+          {attendances?.length > 0 ? (
             attendances.map((attendance, index) => {
               return (
                 <AttendanceComponent
@@ -69,12 +92,14 @@ export default function AttendanceScreen() {
               );
             })
           ) : (
-            <div>
-              <p>
-                No attendances to display. Please refresh to see if they are
-                more to display
-              </p>
-            </div>
+            <tr>
+              <td>
+                <p>
+                  No attendances to display. Please refresh to see if they are
+                  more to display
+                </p>
+              </td>
+            </tr>
           )}
         </tbody>
       </table>

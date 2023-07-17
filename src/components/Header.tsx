@@ -6,38 +6,35 @@ import React from "react"
 import client from "../api/axios"
 import { Attendance, Student, Teacher } from "../dataTypes"
 import logoViolette from "../assets/images/Attendly_logo_violette.png";
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 
 export default function Header(){
 
     const [students, setStudents] = React.useState<Student[]>([])
-    const [attendances, setAttendance] = React.useState<Attendance[]>([])
     const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false);
     const [viewMoreIsOpen, setViewMoreIsOpen] = React.useState<boolean>(false);
 
+    const navigate = useNavigate();
+    const user = JSON.parse(localStorage.getItem("@jwtToken") as string);
+    const userFirstName = user.teacherName.split(' ')[0].toLowerCase();
+    const courses = user.coursesTaught
+  
     React.useEffect(() =>{
-        const users = client.get("/users")
-        const asks = client.get("/asks")
+        const users = client.get("/students")
+        const courses = client.get("/courses?faculty=&dept=&level=&isOpen=")
 
         users
         .then((response) => {
-            const data = response.data.users
-            // console.log(data);
+            const data = response.data.student
+            // console.log("users",data);
             setStudents(data)
-        })
-        .catch(err => console.error(err))
-
-        asks
-        .then((response) => {
-            const data = response.data.category
-            setAttendance(data)
         })
         .catch(err => console.error(err))
         
     },[])
 
-    const numOfUsers = students.length || 0
-    const numOfCategories = attendances.length || 0
+    const numOfUsers = students?.length || 0
+    const numOfCourses = courses?.length || 0
 
 
     const handleMobileMenu = () => {
@@ -48,11 +45,8 @@ export default function Header(){
     }
 
     const handleLogOut = () => {
-        // signOut(auth)
-        // .then(()=>{
-        //     localStorage.removeItem("@jwtToken")
-        //     router.replace("/login");
-        // });
+        localStorage.removeItem("@jwtToken")
+        navigate("/login");
     }
 
 
@@ -95,7 +89,7 @@ export default function Header(){
                            
                             <div className=" justify-between">
                                 <div className="flex">
-                                    <p>Admin</p>
+                                    <p className="hover:underline cursor-pointer">{userFirstName? userFirstName : "Admin"}</p>
                                     <div className="place-self-center">
                                         <RxPerson />
                                     </div>
@@ -118,7 +112,7 @@ export default function Header(){
                             <p>Students</p>
                         </div>
                         <div>
-                            <h2>{numOfCategories}</h2>
+                            <h2>{numOfCourses}</h2>
                             <p>Courses</p>
                         </div>
                     </div>
@@ -140,7 +134,7 @@ export default function Header(){
                                 </div>
                                 <div className="relative" onClick={handleViewMore}>
                                     <div className="flex">
-                                        <p>Admin</p>
+                                        <p className="hover:underline cursor-pointer">{userFirstName? userFirstName : "Admin"}</p>
                                         <div className="place-self-center">
                                             <AiOutlineDown className="text-xs"/>
                                         </div>

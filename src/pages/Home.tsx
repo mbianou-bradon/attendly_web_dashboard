@@ -20,10 +20,11 @@ export default function Home(){
     React.useEffect(()=>{
         const jwtToken = JSON.parse(localStorage.getItem("@jwtToken") as string);
         if(!jwtToken){
-         // navigate("/login");   
+         navigate("/login");   
         } else {
-            const teacherCourses = jwtToken.courses
+            const teacherCourses = jwtToken.coursesTaught
             setCourses(teacherCourses);
+            console.log(teacherCourses);
         }
     },[]);
 
@@ -87,15 +88,28 @@ export default function Home(){
         }
         <div className="px-5">
             <div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols- gap-y-7 [&>*]:w-[25rem] [&>*]:h-fit [&>*]:py-3 [&>*]:rounded-xl [&>*]:border-2 [&>*]:border-primary/20 [&>*]:flex [&>*]:flex-col [&>*]:items-center [&>*]:justify-center [&>*>h2]:text-xl [&>*>h2]:font-semibold [&>*>h2]:pb-2 [&>*]:">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-y-7 [&>*]:w-[25rem] [&>*]:h-fit [&>*]:py-3 [&>*]:rounded-xl [&>*]:border-2 [&>*]:border-primary/20 [&>*]:flex [&>*]:flex-col [&>*]:items-center [&>*]:justify-center [&>*>h2]:text-xl [&>*>h2]:font-semibold [&>*>h2]:pb-2 [&>*]:">
+                    {
+                        courses.map((course, index)=>{
+                            return (
+                                <div key={index}>
+                                    <h2>Course Code: {course.courseCode}</h2>
+                                    <div className="[&>*]:px-6 [&>*]:py-2 [&>*]:rounded-md [&>*:hover]:cursor-pointer flex justify-around gap-4 text-neutral_white">
+                                        <button className="bg-yellow-400 hover:bg-yellow-500" onClick={()=>navigate(`/attendances/${course._id}`)}>View Attendance</button>
+                                        <button className={`${course.openForAttendance? "bg-green-500 hover:bg-green-600" : "bg-red-500 hover:bg-red-600"}`} onClick={()=>setIsModalOpen(true)}>{course.openForAttendance? "OPEN" : "CLOSED"}</button>
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
                     <div>
-                        <h2>Course Title: CEF347</h2>
+                        <h2>Course Code: CEF347</h2>
                         <div className="[&>*]:px-6 [&>*]:py-2 [&>*]:rounded-md [&>*:hover]:cursor-pointer flex justify-around gap-4 text-neutral_white">
                             <button className="bg-yellow-400 hover:bg-yellow-500">View Attendance</button>
                             <button className="bg-green-500 hover:bg-green-600" onClick={()=>setIsModalOpen(true)}>OPEN</button>
                         </div>
                     </div>
-                    <div>
+                    {/* <div>
                         <h2>Course Title: CEF350</h2>
                         <div className="[&>*]:px-6 [&>*]:py-2 [&>*]:rounded-md [&>*:hover]:cursor-pointer flex justify-around gap-4 text-neutral_white">
                             <button className="bg-yellow-400 hover:bg-yellow-500">View Attendance</button>
@@ -108,7 +122,7 @@ export default function Home(){
                             <button className="bg-yellow-400 hover:bg-yellow-500">View Attendance</button>
                             <button className="bg-green-500 hover:bg-green-600">OPEN</button>
                         </div>
-                    </div>
+                    </div> */}
                   
                 </div>
 

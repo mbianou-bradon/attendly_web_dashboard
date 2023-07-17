@@ -99,13 +99,13 @@ export default function AttendanceComponent({ _id, studentMatriculeNumber, cours
                 <h2>{dateSigned}</h2>
               </div>
             </td>
-            <td>
+            {/* <td>
               <div className="py-5 pr-2 [&>*]:flex [&>*]:items-center [&>*]:justify-center [&>*]:gap-1 [&>*]:rounded-full [&>*]:h-[1.625rem] [&>*]:cursor-pointer [&>*:active]:scale-95">
                 <div> 
                    <h2 className="text-xs md:text-sm">Hide Question</h2>
                 </div>
               </div>
-            </td>
+            </td> */}
           </tr>
         </>
       )}

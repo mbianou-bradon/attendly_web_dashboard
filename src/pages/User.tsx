@@ -20,10 +20,10 @@ export default function Users() {
     if (!jwtToken) {
         redirect("/login")
     } else {
-      const users = client.get(`/students?limit=${limit}&page=${page}`);
+      const users = client.get(`/students`);
       users
         .then((response) => {
-          const data = response.data.users;
+          const data = response.data.student;
           console.log(data);
           setUsers(data);
           setIsLoading(false);
@@ -39,7 +39,7 @@ export default function Users() {
   let nextPageBtnStyles = "cursor-pointer hover:bg-primary flex";
   if (page === 1)
     prevPageBtnStyles = "cursor-not-allowed hover:bg-primary/20 hidden";
-  if (users.length < limit)
+  if (users?.length < limit)
     nextPageBtnStyles = "cursor-not-allowed hover:bg-primary/20 hidden";
 
   const handlePrevPage = () => {
@@ -50,7 +50,7 @@ export default function Users() {
     }
   };
   const handleNextPage = () => {
-    if (users.length < limit) {
+    if (users?.length < limit) {
       alert("You have reached the end. You can't go to the Next page");
     } else {
       setPage((prevPage: number) => prevPage + 1);
@@ -70,21 +70,21 @@ export default function Users() {
               </th>
               <th className="w-[50%] sm:w-[25%]">Student Name</th>
               <th className="w-[20%] hidden md:table-cell">Matricule Number</th>
-              <th className="w-[15%] hidden sm:table-cell">Phone Number</th>
+              <th className="w-[15%] hidden md:table-cell">Phone Number</th>
               <th className="w-[20%] hidden md:table-cell">Email</th>
-              <th className="w-[10%] hidden md:table-cell">Department</th>
+              <th className="w-[10%] hidden sm:table-cell">Department</th>
               {/* <th className="w-[15%]"></th> */}
             </tr>
           </thead>
 
           <tbody className="[&>*]:border-b [&>*]:border-[#EEEEEE]">
-            {users.length > 0 ? (
+            {users?.length > 0 ? (
               users.map((user) => {
                 return (
                   <UserComponent
                     key={user._id}
                     _id={user._id}
-                    studentMatricule={user.studentMatricule}
+                    matriculeNumber={user.matriculeNumber}
                     studentName={user.studentName}
                     email={user.email}
                     phoneNumber={user.phoneNumber}

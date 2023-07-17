@@ -7,7 +7,7 @@ export interface Attendance {
 
 export interface Student {
     _id: string,
-    studentMatricule : string;
+    matriculeNumber : string;
     studentName: string;
     email : string;
     phoneNumber: string;
