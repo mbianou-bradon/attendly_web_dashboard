@@ -4,7 +4,7 @@ import { RxPerson } from "react-icons/rx"
 import { BsSearch } from "react-icons/bs"
 import React from "react"
 import client from "../api/axios"
-import { Attendance, Student, Teacher } from "../dataTypes"
+import { Student } from "../dataTypes"
 import logoViolette from "../assets/images/Attendly_logo_violette.png";
 import { NavLink, useNavigate } from "react-router-dom"
 
@@ -16,12 +16,12 @@ export default function Header(){
 
     const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem("@jwtToken") as string);
-    const userFirstName = user.teacherName.split(' ')[0].toLowerCase();
-    const courses = user.coursesTaught
+    const userFirstName = user? user.teacherName.split(' ')[0].toLowerCase() : "Admin";
+    const courses = user?.coursesTaught
   
     React.useEffect(() =>{
         const users = client.get("/students")
-        const courses = client.get("/courses?faculty=&dept=&level=&isOpen=")
+        // const courses = client.get("/courses?faculty=&dept=&level=&isOpen=")
 
         users
         .then((response) => {
