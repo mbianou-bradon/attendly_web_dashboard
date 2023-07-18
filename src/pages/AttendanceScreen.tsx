@@ -20,8 +20,7 @@ export default function AttendanceScreen() {
   /**Formatted date of today */
   const today = new Date();
   const formattedDate = today.toLocaleDateString('en-US', {month: "long", day: "numeric"}).replace(/ /g, '_')
-
-console.log(formattedDate); // Output: "July 17, 2023"
+  
   React.useEffect(() => {
     const jwtToken = JSON.parse(localStorage.getItem("@jwtToken") as string);
     if (!jwtToken) {

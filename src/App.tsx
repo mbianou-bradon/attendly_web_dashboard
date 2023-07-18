@@ -6,6 +6,7 @@ import Attendance from "./pages/AttendanceScreen";
 import Users from "./pages/User";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import Profile from "./pages/Profile";
 
 
 
@@ -34,6 +35,7 @@ const router = createBrowserRouter (
         { path: '/login', element: <Login />},
         { path: '/attendances', element: <Attendance />},
         { path: '/attendances/:course', element: <Attendance />},
+        { path: '/profile', element: <Profile/>}
 
       ]
     }
