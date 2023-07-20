@@ -43,12 +43,17 @@ export default function Login() {
         }).then((response)=>{
             const user = response.data.user;
             console.log(user);
-            localStorage.setItem("@jwtToken", JSON.stringify(user));
-            console.log("user sign in success");
             setUserMatricule("");
             setUserPassword("");
             setError(false);
-            navigate("/");
+            if(user.role === "student"){
+                setError(true);
+                setErrorMessage("It turns out that this is a student account and is not allowed to access this platform, Please Download the mobile App")
+            } else {
+                localStorage.setItem("@jwtToken", JSON.stringify(user));
+                console.log("user sign in success");
+                navigate("/");
+            }
         }).catch((error)=>{
             setError(true);
             setErrorMessage(`${error.message}`);
